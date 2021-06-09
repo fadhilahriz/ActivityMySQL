@@ -2,6 +2,7 @@ package com.example.act7;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,9 @@ public class TambahTeman extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SimpanData();
+                Intent inten = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(inten);
+                finish();
             }
         });
     }

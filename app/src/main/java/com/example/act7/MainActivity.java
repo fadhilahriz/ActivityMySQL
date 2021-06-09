@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  static  final String TAG = MainActivity.class.getSimpleName();
     private  static String url_select = "http://10.0.2.2/umyTI/bacateman.php";
-    private  static  final String TAG_ID = "id";
+    private  static  final String TAG_ID = "Id";
     private  static  final String TAG_NAMA = "nama";
     private  static  final String TAG_TELPON = "telpon";
 
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         fab = findViewById(R.id.floatingBtn);
         BacaData();
-
         adapter = new TemanAdapter(temanArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void BacaData() {
-
+        temanArrayList.clear();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         JsonArrayRequest jArr = new JsonArrayRequest(url_select, new Response.Listener<JSONArray>() {
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 Log.d(TAG, response.toString());
 
-                //Parsing json
+                // Parsing Json
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
@@ -89,13 +88,14 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                adapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 error.printStackTrace();
-                Toast.makeText(MainActivity.this,"gagal",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Gagal",Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jArr);
